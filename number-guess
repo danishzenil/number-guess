@@ -1,0 +1,21 @@
+import streamlit as st
+import random 
+st.title("GUESS THE NUMBER")
+if "secret" not in st.session_state:
+	st.session_state.secret = random.randint(1,100)
+	st.session_state.count=0
+guess_num = st.number_input("enter your guess between 1-100",min_value=1,max_value=100,step=1)
+if st.button("guess"):
+	st.session_state.count +=1
+	if guess_num >st.session_state.secret:
+		 st.warning("TOO HIGH !")
+	elif guess_num < st.session_state.secret:
+		 st.warning("TOO LOW !")
+	else:
+         st.success(f"Correct! You guessed it in {st.session_state.count} attempts.")
+st.write(f"Attempts: {st.session_state.count}")
+
+if st.button("New Game"):
+    st.session_state.number = random.randint(1, 100)
+    st.session_state.count = 0
+    st.rerun()
